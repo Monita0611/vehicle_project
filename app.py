@@ -1,37 +1,25 @@
+import streamlit as st
 import pandas as pd
 import plotly.express as px
-import streamlit as st
-        
-# Leer los datos
+
+# Leer el archivo CSV
 df = pd.read_csv('vehicles_us.csv')
 
-# Crear el botón
-hist_button = st.button('Construir histograma')
+# Título de la app
+st.header('Explorador de Vehículos Usados en EE.UU.')
 
-# Al hacer clic en el botón
-if hist_button:
-    st.write('🎯 **Creación de un histograma para el kilometraje de vehículos usados en EE. UU.**')
+# Mostrar una vista previa de los datos
+st.write("Vista previa de los datos:")
+st.dataframe(df.head())
 
-    # Crear histograma con mejoras
-    fig = px.histogram(
-        df,
-        x="odometer",
-        nbins=50,
-        color="condition",  # Colorear por condición del vehículo
-        title="Distribución del kilometraje según la condición del vehículo",
-        labels={"odometer": "Kilometraje (millas)", "count": "Cantidad de vehículos"},
-        template="plotly_dark"  # Estilo visual oscuro
-    )
+# Checkbox para mostrar histograma
+if st.checkbox('Mostrar histograma del precio'):
+    fig_hist = px.histogram(df, x='price', nbins=50, title='Distribución de precios')
+    st.plotly_chart(fig_hist)
 
-    # Ajustes de diseño del histograma
-    fig.update_layout(
-        bargap=0.2,
-        title_font_size=22,
-        xaxis_title_font_size=16,
-        yaxis_title_font_size=16,
-        legend_title="Condición",
-        legend=dict(x=0.8, y=0.95)
-    )
-
-    # Mostrar el gráfico interactivo
-    st.plotly_chart(fig, use_container_width=True)
+# Checkbox para mostrar diagrama de dispersión
+if st.checkbox('Mostrar gráfico de dispersión precio vs. odómetro'):
+    fig_scatter = px.scatter(df, x='odometer', y='price', color='type',
+                             title='Precio vs. Odómetro por tipo de vehículo',
+                             labels={'odometer': 'Odómetro', 'price': 'Precio'})
+    st.plotly_chart(fig_scatter)
