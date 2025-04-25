@@ -1,6 +1,8 @@
 import streamlit as st
 import pandas as pd
 import plotly.express as px
+import os
+port = os.environ.get("PORT", 10000)
 
 # Leer el archivo CSV
 df = pd.read_csv('vehicles_us.csv')
