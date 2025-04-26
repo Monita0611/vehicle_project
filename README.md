@@ -1,5 +1,7 @@
 # vehicle_project
 
+dashboard = https://vehicle-project-6.onrender.com/
+
 # Explorador de Vehículos Usados
 
 Esta aplicación web interactiva fue desarrollada con [Streamlit](https://streamlit.io/) y permite explorar datos de vehículos usados en Estados Unidos. El conjunto de datos utilizado contiene información como año del modelo, precio, tipo de vehículo, kilometraje, condición, entre otros.
